@@ -1,4 +1,3 @@
-const VERSION = "v1";
 self.addEventListener("install", (event) => {
   event.waitUntil(precache());
 });
@@ -16,30 +15,29 @@ self.addEventListener("fetch", (e) => {
   e.waitUntil(updateCache(request));
 });
 async function precache() {
-  const cache = await caches.open(VERSION);
+  const cache = await caches.open("v1");
   return cache.addAll([
     "/",
     "/index.html",
     "/assets/index.js",
     "/assets/MediaPlayer.js",
     "/assets/plugins/AutoPlay.js",
-    "/assets/plugins/AutoPause.ts",
+    "/assets/plugins/AutoPause.js",
     "/assets/index.css",
     "/assets/BigBuckBunny.mp4",
   ]);
 }
 
-//! esto nunca funcionó, el serviceWorkers del navegador aparentemente no se intalo o algo y al estar offline la pagina no funciona
 async function cachedResponse(request) {
   //obtenemos el cache
-  const cache = await caches.open(VERSION);
+  const cache = await caches.open("v1");
   //chequeamos que en el cache este la info de la peticion.
   //Se le pregunta al cache si tiene una copia que le corresponde al request
   const response = await cache.match(request);
   return response || fetch(request);
 }
 async function updateCache(request) {
-  const cache = await caches.open(VERSION);
+  const cache = await caches.open("v1");
   const response = await fetch(request);
   return cache.put(request, response);
 }
