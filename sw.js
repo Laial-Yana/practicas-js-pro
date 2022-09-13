@@ -17,14 +17,15 @@ self.addEventListener("fetch", (e) => {
 async function precache() {
   const cache = await caches.open("v1");
   return cache.addAll([
-    "/",
-    "/index.html",
-    "/assets/index.js",
-    "/assets/MediaPlayer.js",
-    "/assets/plugins/AutoPlay.js",
-    "/assets/plugins/AutoPause.js",
-    "/assets/index.css",
-    "/assets/BigBuckBunny.mp4",
+    //*lo comento porque al haber integrado parcel ahora se creo la carpeta dist y ya no es necesario
+    // "/",
+    // "/index.html",
+    // "/assets/index.js",
+    // "/assets/MediaPlayer.js",
+    // "/assets/plugins/AutoPlay.js",
+    // "/assets/plugins/AutoPause.ts",
+    // "/assets/index.css",
+    // "/assets/BigBuckBunny.mp4",
   ]);
 }
 
@@ -34,6 +35,7 @@ async function cachedResponse(request) {
   //chequeamos que en el cache este la info de la peticion.
   //Se le pregunta al cache si tiene una copia que le corresponde al request
   const response = await cache.match(request);
+  //* ya no es necesario porque igualmente aca se va a hacer el fetch y lo guardara
   return response || fetch(request);
 }
 async function updateCache(request) {
